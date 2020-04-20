@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe SubscriptionsController do
+RSpec.describe UserSubscriptionsController do
   it {
     get '/'
     expect(response).to be_successful
