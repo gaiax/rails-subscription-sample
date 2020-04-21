@@ -1,0 +1,3 @@
+[submodule "global-style-guides"]
+	path = global-style-guides
+	url = https://github.com/cookpad/global-style-guides
