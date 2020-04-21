@@ -16,7 +16,7 @@ class UserSubscriptionsController < ApplicationController
       return
     end
     session[:subscribed] = true
-    flash[:notice] = '購読を開始しました'
+    flash[:notice] = '購読しました'
     redirect_to action: :index
   end
 
