@@ -1,12 +1,23 @@
 # README
+bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib"
+
+## 環境
+
+- Ruby 2.6
+- MySQL 5.7
+- Node.js 10
 
 ## セットアップ
 
 ```sh
 $ bundle install
+$ cp .env.example .env
 $ rails db:create db:schema:load --trace
 
-### Setup rubocop
+### MySQLを起動する
+$ docker-compose up -d
+
+### rubocopのルールをダウンロード
 $ git submodule update --init
 ```
 
