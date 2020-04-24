@@ -28,3 +28,11 @@ $ gem install foreman
 $ foreman start
 ```
 
+## 構成について
+
+`session` で保持する値は本来テーブル（データベース）に保存するべき値です。
+
+```sh
+$ git grep session
+```
+

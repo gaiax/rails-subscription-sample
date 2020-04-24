@@ -6,8 +6,9 @@ class AuthController < ApplicationController
 
   def create
     # 最低限のデモアプリなので認証は未実装
-    # データリセットのみを行う
     reset_session
+    session['user_email'] = 'taro.subscription@example.com'
+    session['user_name'] = 'サブスク太郎'
     redirect_to user_subscriptions_path
   end
 end

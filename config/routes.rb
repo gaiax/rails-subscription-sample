@@ -9,4 +9,9 @@ Rails.application.routes.draw do
       delete :subscribe, action: 'unsubscribe'
     end
   end
+
+  # JavaScriptから叩くAPI
+  namespace :api do
+    resources :payments, only: [:create]
+  end
 end
