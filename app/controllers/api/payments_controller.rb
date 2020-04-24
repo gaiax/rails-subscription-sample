@@ -16,6 +16,7 @@ class Api::PaymentsController < ApplicationController
       ],
       expand: ['latest_invoice.payment_intent']
     )
+    session[:subscribed] = true
     render json: { message: 'OK' }, status: :ok
   end
 
@@ -40,7 +41,7 @@ class Api::PaymentsController < ApplicationController
       email: session['user_email'],
       invoice_settings: {
         default_payment_method: create_params[:payment_method_id]
-      },
+      }
     )
     session[:customer_id] = response.id
   end

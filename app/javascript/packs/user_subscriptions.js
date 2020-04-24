@@ -31,9 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 payment_method_id: result.paymentMethod.id
             }),
         });
-
-        // The customer has been created
-        const customer = await res.json();
+        location.reload(true);
     }
 
     const form = document.getElementById('subscription-form');
