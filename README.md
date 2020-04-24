@@ -11,6 +11,7 @@ bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib"
 
 ```sh
 $ bundle install
+$ yarn install
 $ cp .env.example .env
 $ rails db:create db:schema:load --trace
 
