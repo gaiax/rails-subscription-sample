@@ -44,7 +44,7 @@ jobs:
             - rails-subscription-sample-yarn-
       - run:
           name: Yarn Install
-          command: yarn install --cache-folder ~/.cache/yarn && bin/rails webpacker:install
+          command: yarn install --cache-folder ~/.cache/yarn
       # Store yarn / webpacker cache
       - save_cache:
           key:  rails-subscription-sample-yarn-{{ checksum "yarn.lock" }}
