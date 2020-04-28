@@ -3,15 +3,24 @@
 Rails.application.routes.draw do
   root 'auth#index'
   resources :auth, only: %w[index create]
-  resources :user_subscriptions, only: %w[index] do
+  resources :subscriptions, only: %w[index] do
     collection do
-      post :subscribe, action: 'subscribe'
-      delete :subscribe, action: 'unsubscribe'
+      get :success, action: 'success'
+      get :completed, action: 'completed'
+      get :cancel, action: 'cancel'
+      get :error, action: 'error'
+    end
+  end
+
+  resources :unsubscriptions, only: [] do
+    collection do
+      get :completed, action: 'completed'
     end
   end
 
   # JavaScriptから叩くAPI
   namespace :api do
-    resources :payments, only: [:create]
+    post '/subscriptions', action: :subscribe, controller: :subscriptions
+    delete '/subscriptions', action: :unsubscribe, controller: :subscriptions
   end
 end

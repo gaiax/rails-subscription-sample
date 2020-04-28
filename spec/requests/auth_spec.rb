@@ -9,7 +9,7 @@ RSpec.describe AuthController do
   }
   it {
     post '/auth'
-    expect(response).to redirect_to(user_subscriptions_path)
+    expect(response).to redirect_to(subscriptions_path)
     follow_redirect!
     expect(response).to be_successful
   }

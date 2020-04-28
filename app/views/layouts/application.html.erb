@@ -4,10 +4,15 @@
     <title>RailsSubscriptionSample</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <% if content_for?(:head) %>
+      <%= yield(:head) %>
+    <% end %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script src="https://js.stripe.com/v3/"></script>
+    <% if content_for?(:javascript) %>
+      <%= yield(:javascript) %>
+    <% end %>
     <%= javascript_pack_tag params[:controller] %>
     <%= stylesheet_link_tag params[:controller] %>
   </head>
