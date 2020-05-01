@@ -4,6 +4,6 @@
 # https://stripe.com/docs/payments/checkout
 class StripeUser < ApplicationRecord
   def subscribed?
-    subscription_id.present?
+    is_subscribed
   end
 end

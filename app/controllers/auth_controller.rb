@@ -15,6 +15,7 @@ class AuthController < ApplicationController
     if stripe_user.present?
       stripe_user.update(
         customer_id: nil,
+        is_subscribed: false,
         session_id: nil,
         subscription_id: nil
       )

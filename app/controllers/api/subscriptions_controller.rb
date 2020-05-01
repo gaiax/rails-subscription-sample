@@ -3,7 +3,6 @@
 require 'stripe'
 
 class Api::SubscriptionsController < ApplicationController
-
   def subscribe
     base_url = "#{request.scheme}://#{request.host}:#{request.port}"
     # `session` は 既に ApplicationController が定義しているため、
@@ -45,7 +44,7 @@ class Api::SubscriptionsController < ApplicationController
       subscription = Stripe::Subscription.delete(stripe_user.subscription_id)
       if subscription.canceled_at > 0
         stripe_user.update(
-          subscription_id: nil
+          is_subscribed: false
         )
         render json: nil, status: :ok
       else
@@ -79,6 +78,11 @@ class Api::SubscriptionsController < ApplicationController
       email: session['user_email'],
       invoice_settings: {
         default_payment_method: create_params[:payment_method_id]
+      },
+      # アプリケーション独自のデータをmetadataで保持できる
+      # 検索例: https://dashboard.stripe.com/test/search?query=metadata%3Auser_id%3D1
+      metadata: {
+        user_id: session[:user_id]
       }
     )
     session[:customer_id] = response.id

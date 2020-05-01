@@ -18,6 +18,11 @@ Rails.application.routes.draw do
     end
   end
 
+  # webhooks
+  namespace :hooks do
+    resources :stripe, only: %w[create]
+  end
+
   # JavaScriptから叩くAPI
   namespace :api do
     post '/subscriptions', action: :subscribe, controller: :subscriptions

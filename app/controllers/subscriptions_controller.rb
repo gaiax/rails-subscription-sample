@@ -6,7 +6,7 @@
 # https://stripe.com/docs/payments/checkout/subscriptions/starting
 class SubscriptionsController < ApplicationController
   def index
-    @subscribed = StripeUser.find_by(user_id: session['user_id']).subscribed?
+    @stripe_user = StripeUser.find_by(user_id: session[:user_id])
   end
 
   def success
@@ -25,6 +25,7 @@ class SubscriptionsController < ApplicationController
       # https://stripe.com/docs/api/checkout/sessions/retrieve
       checkout_session = Stripe::Checkout::Session.retrieve(success_params[:session_id])
       stripe_user.update(
+        is_subscribed: true,
         # subscription_id: "sub_xxxxxxx..."
         subscription_id: checkout_session.subscription
       )
