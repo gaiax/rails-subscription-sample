@@ -12,8 +12,6 @@ class Api::SubscriptionsController < ApplicationController
       payment_method_types: ['card'],
       subscription_data: {
         items: [{
-          # Stripeのダッシュボードでプランを作成する
-          # https://dashboard.stripe.com/test/subscriptions/products
           plan: ENV['STRIPE_PLAN_ID']
         }]
       },
