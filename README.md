@@ -1,5 +1,4 @@
 # README
-bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib"
 
 ## 環境
 
@@ -11,6 +10,10 @@ bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib"
 
 ```sh
 $ yarn install
+
+### macOSの場合
+$ bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib"
+
 $ bundle install --path=vendor
 $ cp .env.example .env
 $ rails db:create db:schema:load --trace
@@ -31,7 +34,7 @@ $ foreman start
 
 ## 構成について
 
-`session` で保持する値は本来テーブル（データベース）に保存するべき値です。
+`session` で保持する値は本来テーブル（データベース）に保存するべき値。
 
 ```sh
 $ git grep session
