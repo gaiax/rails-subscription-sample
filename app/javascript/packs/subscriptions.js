@@ -48,7 +48,7 @@ function unsubscribe() {
             'X-CSRF-Token': getCsrfToken()
         },
         success: function (data) {
-            location.href = "/unsubscription/completed"
+            location.href = "/unsubscriptions/completed"
         },
     })
 }
