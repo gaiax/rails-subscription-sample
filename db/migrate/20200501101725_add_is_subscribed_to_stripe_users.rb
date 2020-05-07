@@ -2,6 +2,6 @@
 
 class AddIsSubscribedToStripeUsers < ActiveRecord::Migration[6.0]
   def change
-    add_column :stripe_users, :is_subscribed, :boolean, default: true, null: false
+    add_column :stripe_users, :is_subscribed, :boolean, default: false, null: false
   end
 end

@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2020_05_01_101725) do
     t.string "subscription_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "is_subscribed", default: true, null: false
+    t.boolean "is_subscribed", default: false, null: false
   end
 
 end
