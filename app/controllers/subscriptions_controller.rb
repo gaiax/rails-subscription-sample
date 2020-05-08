@@ -6,7 +6,7 @@
 # https://stripe.com/docs/payments/checkout/subscriptions/starting
 class SubscriptionsController < ApplicationController
   def index
-    @stripe_user = StripeUser.find_by(user_id: session[:user_id])
+    @stripe_user = current_user.stripe_user
   end
 
   def success

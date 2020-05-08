@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'auth#index'
-  resources :auth, only: %w[index create]
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
+  root 'root#index'
   resources :subscriptions, only: %w[index] do
     collection do
       get :success, action: 'success'

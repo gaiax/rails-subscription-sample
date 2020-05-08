@@ -2,12 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe SubscriptionsController do
-  before {
-    post '/auth'
-  }
+RSpec.describe SubscriptionsController, type: :request do
   it {
-    get '/subscriptions'
+    user = create(:user)
+    sign_in(user)
+    get subscriptions_path
     expect(response).to be_successful
   }
 end
