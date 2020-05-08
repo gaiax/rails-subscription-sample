@@ -24,7 +24,7 @@ class Api::SubscriptionsController < ApplicationController
       cancel_url: "#{base_url}#{cancel_subscriptions_path}"
     )
     # あとでStripeからコールバックしたときにsession_idを検証する
-    StripeUser.find_by(user_id: session[:user_id]).update(
+    StripeUser.find_by(user_id: current_user.id).update(
       # customer_id: "cus_xxxxxxxxxx..."
       customer_id: customer_id,
       # session_id: "cs_xxxx_xxxxxx..."
@@ -34,7 +34,7 @@ class Api::SubscriptionsController < ApplicationController
   end
 
   def unsubscribe
-    stripe_user = StripeUser.find_by(user_id: session[:user_id])
+    stripe_user = StripeUser.find_by(user_id: current_user.id)
     return render json: nil, status: :ok unless stripe_user.subscribed?
 
     # エラーハンドリング
@@ -70,22 +70,25 @@ class Api::SubscriptionsController < ApplicationController
 
   # Stripeのカスタマー情報がない場合は作成する
   def customer_id
-    return session[:customer_id] if session[:customer_id]
+    stripe_user = current_user.stripe_user
+    return stripe_user.customer_id if stripe_user.customer_id.present?
 
     response = Stripe::Customer.create(
       payment_method: create_params[:payment_method_id],
-      name: session['user_name'],
-      email: session['user_email'],
+      name: 'サブスク太郎',
+      email: current_user.email,
       invoice_settings: {
         default_payment_method: create_params[:payment_method_id]
       },
       # アプリケーション独自のデータをmetadataで保持できる
       # 検索例: https://dashboard.stripe.com/test/search?query=metadata%3Auser_id%3D1
       metadata: {
-        user_id: session[:user_id]
+        user_id: current_user.id
       }
     )
-    session[:customer_id] = response.id
+    stripe_user.customer_id = response.id
+    stripe_user.save
+    stripe_user.customer_id
   end
 
   def create_params
