@@ -13,8 +13,12 @@
     <% if content_for?(:javascript) %>
       <%= yield(:javascript) %>
     <% end %>
-    <%= javascript_pack_tag params[:controller] %>
-    <%= stylesheet_link_tag params[:controller] %>
+    <% if Rails.root.join("app/javascript/packs/#{params[:controller]}.js").exist? %>
+      <%= javascript_pack_tag params[:controller] %>
+    <% end %>
+    <% if Rails.root.join("app/assets/stylesheets/#{params[:controller]}.css").exist? %>
+      <%= stylesheet_link_tag params[:controller] %>
+    <% end %>
   </head>
 
   <body>
