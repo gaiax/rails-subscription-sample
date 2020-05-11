@@ -60,7 +60,7 @@ $ stripe listen --forward-to localhost:3000/hooks/stripe
 $ stripe trigger invoice.payment_succeeded
 
 ### 定期支払いに失敗したときのイベント
-$ stripe trigger invoice.payment_succeeded
+$ stripe trigger invoice.payment_failed
 ```
 
 ## 構成について
