@@ -15,6 +15,7 @@ $ yarn install
 $ bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib"
 
 $ bundle install --path=vendor
+### .env.exampleをコピーして編集する
 $ cp .env.example .env
 $ rails db:create db:schema:load --trace
 
