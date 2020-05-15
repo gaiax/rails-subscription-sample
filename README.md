@@ -8,6 +8,54 @@
 
 ## セットアップ
 
+あらかじめ Stripe のダッシュボードでプロジェクトを作成しておく。
+
+[ダッシュボード – Stripe](https://dashboard.stripe.com/dashboard)
+
+### 環境変数を設定する
+
+`.env.example` をコピーし、テキストエディターで `.env` を編集して環境変数を設定する。
+
+```
+$ cp .env.example .env
+```
+
+#### STRIPE_PLAN_ID 定期支払い商品のID
+
+1. [ダッシュボード – Stripe](https://dashboard.stripe.com/dashboard)のサイドメニューで `Billing`, `商品` と順にクリックする
+2. `+ 新規` をクリックし、必須項目（ `任意` がついてない項目）を埋め、`料金プランを追加` ボタンをクリックして商品を作成する
+3. 画面中央付近の `価格` に作成した商品があり、それをクリックする
+4. 画面右上のIDをコピーする（ `plan_xxxxxxxxxxxxxx` ）
+5. `.env` を開き、コピーしたIDを `STRIPE_PLAN_ID` にセットする
+
+```
+STRIPE_PLAN_ID=plan_xxxxxxxxxxxxxx
+```
+
+#### STRIPE_KEY_PUBLIC と STRIPE_KEY_SECRET
+
+- `STRIPE_KEY_PUBLIC` JavaScriptが使うトークン
+- `STRIPE_KEY_SECRET` Railsが使うトークン
+
+
+1. [ダッシュボード – Stripe](https://dashboard.stripe.com/dashboard)のサイドメニューで `開発者`, `API キー` と順にクリックする
+2. `公開可能キー` のトークンをコピーする（ `pk_test_xxxxxxxx` ）
+3. `.env` を開き、コピーしたトークンを `STRIPE_KEY_PUBLIC` にセットする
+4. `シークレットキー` 右の `テスト用キー` をクリックしてトークンを表示し、トークンをコピーする（ `sk_test_xxxxxxxx` ）
+3. `.env` を開き、コピーしたトークンを `STRIPE_KEY_SECRET` にセットする
+
+```
+### トークンによって先頭の文字が違うので気をつける（ `pk` と `sk` ）
+STRIPE_KEY_PUBLIC=pk_test_xxxxxxxx
+STRIPE_KEY_SECRET=sk_test_xxxxxxxx
+```
+
+#### STRIPE_KEY_SECRET Railsで使うトークン
+
+
+
+### アプリケーションをセットアップする
+
 ```sh
 $ yarn install
 
@@ -15,7 +63,6 @@ $ yarn install
 $ bundle config --local build.mysql2 "--with-ldflags=-L/usr/local/opt/openssl/lib"
 
 $ bundle install --path=vendor
-$ cp .env.example .env
 $ rails db:create db:schema:load --trace
 
 ### MySQLを起動する
@@ -60,7 +107,7 @@ $ stripe listen --forward-to localhost:3000/hooks/stripe
 $ stripe trigger invoice.payment_succeeded
 
 ### 定期支払いに失敗したときのイベント
-$ stripe trigger invoice.payment_succeeded
+$ stripe trigger invoice.payment_failed
 ```
 
 ## 構成について
