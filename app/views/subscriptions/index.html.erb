@@ -1,0 +1,20 @@
+<% content_for :javascript do %>
+  <script src="https://js.stripe.com/v3/"></script>
+<% end %>
+
+<%
+  # JavaScriptでイベントハンドリングしている
+  # app/javascript/packs/subscriptions.js
+%>
+
+<ul>
+  <li>is_subscribed: <%= @stripe_user.subscribed? %></li>
+  <li>customer_id: <%= @stripe_user.customer_id %></li>
+</ul>
+
+<% if @stripe_user.subscribed? %>
+  <%= button_tag '購読を解除する', id: "unsubscribe" %>
+<% else %>
+  <p>テスト用カード番号: <a href="https://stripe.com/docs/billing/subscriptions/cards#test-integration" target="_blank">Subscriptions with card payments | Stripe Billing</a></p>
+  <%= button_tag '購読する（月額1,000円）', id: "subscribe" %>
+<% end %>
