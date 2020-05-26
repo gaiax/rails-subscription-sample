@@ -3,6 +3,8 @@
   <%= form_for :anything, method: "delete", url: destroy_user_session_path do |f| %>
     <%= f.submit "ログアウト" %>
   <% end %>
+  <hr>
+  <%= link_to '購読', subscriptions_path %>
 <% else %>
   <%= form_for :anything, method: "get", url: new_user_session_path do |f| %>
     <%= f.submit "ログイン" %>
@@ -10,6 +12,3 @@
   <%= link_to '登録する', new_user_registration_path %>
 <% end %>
 
-<hr>
-
-<%= link_to '購読', subscriptions_path %>
